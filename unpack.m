@@ -1,0 +1,30 @@
+function [A,B,b,C,d,Q,S,R,P,L,Lambda,l] = unpack(x,Nnum,in,out)
+    index = [Nnum*Nnum Nnum*in Nnum*1 out*Nnum out*1 Nnum*Nnum Nnum*Nnum Nnum*Nnum 4*Nnum*Nnum Nnum*Nnum Nnum in];
+    endi = cumsum(index);
+    starti = cumsum([1 index(1:end-1)]);
+    A=x(starti(1):endi(1),1);
+    B=x(starti(2):endi(2),1);
+    b=x(starti(3):endi(3),1);
+    C=x(starti(4):endi(4),1);
+    d=x(starti(5):endi(5),1);
+    Q=x(starti(6):endi(6),1);
+    S=x(starti(7):endi(7),1);
+    R=x(starti(8):endi(8),1);
+    P=x(starti(9):endi(9),1);
+    L=x(starti(10):endi(10),1);
+    Lambda=x(starti(11):endi(11),1);
+    l=x(starti(12):endi(12),1);
+    
+    A=reshape(A,[Nnum Nnum]);
+    B=reshape(B,[Nnum in]);
+    C=reshape(C,[out Nnum]);
+    Q=reshape(Q,[Nnum Nnum]);
+    S=reshape(S,[Nnum Nnum]);
+    R=reshape(R,[Nnum Nnum]);
+    P=reshape(P,[2*Nnum 2*Nnum]);
+    L=reshape(L,[Nnum Nnum]);
+    Q=(Q+Q')/2;
+    R=(R+R')/2;
+    P=(P+P')/2;
+    L=(L+L')/2;
+end
